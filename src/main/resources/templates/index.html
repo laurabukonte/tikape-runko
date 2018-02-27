@@ -1,4 +1,41 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Smoothien luominen</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        
+        <h2>Kaikki smoothiet</h2>
+
+        <ul>
+            <li th:each="annos: ${annokset}">
+                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
+                    <span th:text="${annos.nimi}">Annoksen nimi</span>
+                </a>
+            </li>
+        </ul>
+        
+        <ul>
+            <li>
+                <a href ="/smoothiet">Luo uusi smoothie</a>
+            </li>
+            <li>
+                <a href ="/ainekset">Tarkastele ja lisaa aineksia</a>
+            </li>
+        </ul>
+        
+        
+    </body>
+</html>
+
+
+<!--
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
@@ -14,3 +51,4 @@
         <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
     </body>
 </html>
+-->

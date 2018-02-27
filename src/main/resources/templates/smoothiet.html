@@ -1,18 +1,70 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
     <head>
-        <title>Otsikko</title>
-        <meta charset="utf-8" />
+        <title>Smoothiet</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-
     <body>
-        <h1>Hei opiskelijat!</h1>
+        <h2>Smoothiet</h2>
 
-        <ol>
-            <li th:each="opiskelija: ${opiskelijat}">
-                <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
+        <ul>
+            <li th:each="annos: ${annokset}">
+                <div>
+                    <a th:href="@{~/smoothiet/{id}(id=${annos.id})}" th:text="${annos.nimi}">Annos</a>
+                    <a th:href="@{~/smoothiet/{id}/delete(id=${annos.id})}">(delete)</a>
+                </div>
             </li>
-        </ol>
+        </ul>
+
+        <div>
+           <!-- <h4>Lisaa uusi smoothie</h4> -->
+
+            <form method="POST" action="/smoothiet/annos">
+                Smoothien nimi:<br/>
+                <input type="text" name="nimi"/><br/>
+                <input type="submit" value="Lisaa smoothie"/>
+            </form>
+        </div>
+
+        <div>
+            <h4>Valitse raaka aine</h4>
+
+            <form method="POST" action="/smoothiet/annosraakaaine">
+                Smoothien nimi:<br/>
+                <select th:field="smoothieId" name ="smoothieId">
+                    <option th:each="annos: ${annokset}" th:value="${annos.id}" th:text="${annos.nimi}">
+                        smoothie
+                    </option> 
+                </select>
+
+                <br/>
+                Valitse raaka aine<br/>
+                <select th:field="raakaAineId" name ="raakaAineId">
+                    <option th:each="raakaAine: ${ainekset}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                        raakaAine
+                    </option>
+                </select>
+
+                <br/>
+                Jarjestys (esim. 1)<br/>
+                <input type="text" name="jarjestys"/><br/>
+                Maara (kpl, esim. 3)<br/>
+                <input type="text" name="maara"/><br/>
+                Lisaa valmistus ohjeita: <br/>
+                <input type="text" name="ohje"/><br/>
+                <input type="submit" value="Lisaa"/>
+            </form>
+        </div>
+
+
+        <ul>
+            <li>
+                <a href="/">Kaikki smoothiet (Etusivu)</a>
+            </li>
+        </ul>
+
     </body>
 </html>
+
+
