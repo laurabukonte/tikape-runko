@@ -137,15 +137,16 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
         }
             try (Connection connection = database.getConnection()) {
                 PreparedStatement stmt = connection.prepareStatement(
-                        "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
+                        "INSERT INTO AnnosRaakaAine (annos_id, raaka_aine_id,  jarjestys, maara, ohje) "
                         + " VALUES (?, ?, ?, ?, ?)"
                 );
-
-                stmt.setInt(1, object.getJarjestys());
-                stmt.setInt(2, object.getMaara());
-                stmt.setString(3, object.getOhje());
-                stmt.setInt(4, object.getRaakaAineId());
-                stmt.setInt(5, object.getAnnosId());
+                
+                stmt.setInt(1, object.getAnnosId());
+                stmt.setInt(2, object.getRaakaAineId());
+                stmt.setInt(3, object.getJarjestys());
+                stmt.setInt(4, object.getMaara());
+                stmt.setString(5, object.getOhje());
+                
 
                 stmt.executeUpdate();
                 stmt.close();
@@ -158,7 +159,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
 
     public AnnosRaakaAine findByAnnosIdRaakaAineId(Integer annosId, Integer raakaAineId) throws SQLException {
         try (Connection connection = database.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement("SELECT id, raaka_aine_id, annos_id, jarjestys, maara, ohje  FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT id, annos_id, raaka_aine_id,  jarjestys, maara, ohje  FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?");
 
             stmt.setInt(1, annosId);
             stmt.setInt(1, raakaAineId);

@@ -50,7 +50,20 @@ public class Database {
         lista.add("CREATE TABLE Smoothie (id integer PRIMARY KEY, nimi varchar(255));");
         lista.add("CREATE TABLE Annos (id integer PRIMARY KEY, nimi varchar(255));");
         lista.add("CREATE TABLE RaakaAine (id integer PRIMARY KEY, nimi varchar(255));");
-        lista.add("CREATE TABLE AnnosRaakaAine (id integer PRIMARY KEY, annos_id integer, raaka_aine_id inteher, jarjestys integer, maara integer, ohje varchar(2500));");
+        
+        lista.add("CREATE TABLE AnnosRaakaAine "
+                + "(id integer," 
+                + "annos_id integer,"
+                + "raaka_aine_id integer,"
+                + "jarjestys integer, "
+                + "maara integer, "
+                + "ohje varchar(2500),"
+                + "FOREIGN KEY (annos_id) REFERENCES Annos(id),"
+                + "FOREIGN KEY (raaka_aine_id) REFERENCES RaakaAine(id));");
+
+        
+        
+       // lista.add("CREATE TABLE AnnosRaakaAine (id integer PRIMARY KEY, annos_id integer, raaka_aine_id integer, jarjestys integer, maara integer, ohje varchar(2500));");
        
         
       //  lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Platon');");

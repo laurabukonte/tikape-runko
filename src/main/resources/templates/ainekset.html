@@ -7,7 +7,17 @@
     </head>
     <body>
         
-        <h2>Raaka aine lista</h2>
+        
+        <h2>Lisaa uusi raaka aine</h2>
+        
+        <form method="POST" action="/ainekset">
+            Raaka aineen nimi:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisaa raaka-aine"/>
+        </form>
+        
+        
+        <h3>Raaka aine lista</h3>
         
         <ul>
             <li th:each="raakaAine : ${ainekset}">
@@ -17,14 +27,6 @@
                 </div>
             </li>
         </ul>
-        
-        <h4>Lisaa uusi raaka aine</h4>
-        
-        <form method="POST" action="/ainekset">
-            Raaka aineen nimi:<br/>
-            <input type="text" name="nimi"/><br/>
-            <input type="submit" value="Lisaa raaka-aine"/>
-        </form>
         
         <ul>
             <li>
