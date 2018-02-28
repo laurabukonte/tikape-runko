@@ -72,7 +72,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        // enable depeting
+        // enable deleting
         
         Spark.get("/smoothiet/:id/delete", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -90,12 +90,11 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-     
+    
         
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             
-            // Define Annos and its id:
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
