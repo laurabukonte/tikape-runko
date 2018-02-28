@@ -18,7 +18,7 @@ and open the template in the editor.
             <li th:each="raakaAine:${raakaAineet}">
                 <span th:each="annosRaakaAine:${annosRaakaAineet}" 
                       th:if="${annosRaakaAine.raakaAineId} eq ${raakaAine.id}" 
-                      th:text="'Raaka aine: ' + ${raakaAine.nimi} + ', ' + ${annosRaakaAine.maara} + ' kpl, Ohje: ' + ${annosRaakaAine.ohje}">Ainesosan nimi,määrä ja ohje</span>
+                      th:text="'Raaka aine: ' + ${raakaAine.nimi} + ', ' + ${annosRaakaAine.maara} + ' kpl tai dl, Ohje: ' + ${annosRaakaAine.ohje}">Ainesosan nimi,määrä ja ohje</span>
             </li>
         </ul>
         

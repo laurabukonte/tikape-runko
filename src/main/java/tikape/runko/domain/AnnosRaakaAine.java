@@ -14,10 +14,10 @@ public class AnnosRaakaAine {
     private Integer annosId;
     private Integer raakaAineId;
     private Integer jarjestys;
-    private Integer maara;
+    private Double maara;
     private String ohje;
     
-    public AnnosRaakaAine(Integer id, Integer annosId, Integer raakaAineId, Integer jarjestys, Integer maara, String ohje) {
+    public AnnosRaakaAine(Integer id, Integer annosId, Integer raakaAineId, Integer jarjestys, Double maara, String ohje) {
         this.id = id;
         this.annosId = annosId;
         this.raakaAineId = raakaAineId;
@@ -42,7 +42,7 @@ public class AnnosRaakaAine {
         return jarjestys;
     }
 
-    public Integer getMaara() {
+    public double getMaara() {
         return maara;
     }
 
@@ -50,7 +50,7 @@ public class AnnosRaakaAine {
         return ohje;
     }
 
-    public void setMaara(Integer lisays) {
+    public void setMaara(Double lisays) {
         this.maara += lisays;
     }
     

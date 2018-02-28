@@ -32,7 +32,8 @@ public class Main {
         AnnosDao annosDao = new AnnosDao(database);
         AnnosRaakaAineDao annosRaakaAineDao = new AnnosRaakaAineDao(database);
         
-        // Create index-page:
+        
+        // index.html:
         Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
@@ -60,7 +61,7 @@ public class Main {
             Integer raakaAineId = Integer.parseInt(req.params(":id"));
             RaakaAine raakaAine = raakaAineDao.findOne(raakaAineId);
             
-            // Delete raakaAine and its relations:
+            // Delete raakaAine 
             raakaAineDao.delete(raakaAineId);
             annosRaakaAineDao.deleteRaakaAine(raakaAineId);
             
@@ -70,14 +71,15 @@ public class Main {
             return new ModelAndView(map, "delete");
         }, new ThymeleafTemplateEngine());
         
+        
         Spark.get("/smoothiet/:id/delete", (req, res) -> {
             HashMap map = new HashMap<>();
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
-            // Delete Annos and its relations.
-            annosDao.delete(annosId);
-            annosRaakaAineDao.deleteAnnos(annosId);
+            
+            annosDao.delete(annosId); // from AnnosDao
+            annosRaakaAineDao.deleteAnnos(annosId); // RaakaAineDao
             
             map.put("id", annosId);
             map.put("removed", annos.getNimi());
@@ -95,12 +97,12 @@ public class Main {
             Annos annos = annosDao.findOne(annosId);
             
             // Find raakaAine list:
-            List<RaakaAine> raakaAineet = raakaAineDao.findAnnokseenLiittyvat(annosId);
+            List<RaakaAine> raakaAineet = raakaAineDao.findRaakaAineByAnnos(annosId);
             
             map.put("annosId", annosId);
             map.put("annos", annos);
             map.put("raakaAineet", raakaAineet);
-            map.put("annosRaakaAineet", annosRaakaAineDao.findAnnokseenLiittyvat(annosId));
+            map.put("annosRaakaAineet", annosRaakaAineDao.findRaakaAineByAnnos(annosId));
             
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());
@@ -113,7 +115,8 @@ public class Main {
             return "";
         });
         
-        // Add new Smoothie: Annos
+        // Create new smoothie
+        
         Spark.post("/smoothiet/annos", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
@@ -122,12 +125,13 @@ public class Main {
             return "";
         });
         
-        // Add new Smoothie: relation between Annos and RaakaAineet -> AnnosRaakaAine
+        // AnnosRaakaAine
+        
         Spark.post("/smoothiet/annosraakaaine", (req, res) -> {
             Integer annosId = Integer.parseInt(req.queryParams("smoothieId"));
             Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAineId"));
             
-            Integer maara = Integer.parseInt(req.queryParams("maara"));
+            double maara = Double.parseDouble(req.queryParams("maara"));
             Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
             String ohje = req.queryParams("ohje");
             
@@ -139,10 +143,6 @@ public class Main {
         });
     }
 }
-
-
-
-
 
 
 

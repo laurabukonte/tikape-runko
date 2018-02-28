@@ -56,7 +56,7 @@ public class Database {
                 + "annos_id integer,"
                 + "raaka_aine_id integer,"
                 + "jarjestys integer, "
-                + "maara integer, "
+                + "maara double, "
                 + "ohje varchar(2500),"
                 + "FOREIGN KEY (annos_id) REFERENCES Annos(id),"
                 + "FOREIGN KEY (raaka_aine_id) REFERENCES RaakaAine(id));");

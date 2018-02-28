@@ -39,10 +39,9 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
         if (!hasOne) {
             return null;
         }
-
         Integer id = rs.getInt("id");
         Integer jarjestys = rs.getInt("jarjestys");
-        Integer maara = rs.getInt("maara");
+        double maara = rs.getDouble("maara");
         String ohje = rs.getString("ohje");
 
         Integer raakaAineId = rs.getInt("raaka_aine_id");
@@ -101,22 +100,21 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    // Etsi annos_id:tä vastaavat annosRaakaAineet:
-    public List<AnnosRaakaAine> findAnnokseenLiittyvat(Integer annosId) throws SQLException {
+    // Find by annos id
+    public List<AnnosRaakaAine> findRaakaAineByAnnos(Integer annosId) throws SQLException {
         List<AnnosRaakaAine> annosRaakaAineet = new ArrayList<>();
         Connection connection = database.getConnection();
 
-        // Find all annosRaakaAine where annos_id == annosId:
+        // Find annosRaakaAine where annos_id == annosId:
         PreparedStatement stmt = connection.prepareStatement("SELECT id, raaka_aine_id, jarjestys, maara, ohje  FROM AnnosRaakaAine WHERE annos_id = ?");
         stmt.setInt(1, annosId);
         ResultSet rs = stmt.executeQuery();
 
-        // Add annosRaakaAineet to a list:
         while (rs.next()) {
             Integer id = rs.getInt("id");
             Integer raakaAineId = rs.getInt("raaka_aine_id");
             Integer jarjestys = rs.getInt("jarjestys");
-            Integer maara = rs.getInt("maara");
+            double maara = rs.getDouble("maara");
             String ohje = rs.getString("ohje");
 
             annosRaakaAineet.add(new AnnosRaakaAine(id, annosId, raakaAineId, jarjestys, maara, ohje));
@@ -144,7 +142,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
                 stmt.setInt(1, object.getAnnosId());
                 stmt.setInt(2, object.getRaakaAineId());
                 stmt.setInt(3, object.getJarjestys());
-                stmt.setInt(4, object.getMaara());
+                stmt.setDouble(4, object.getMaara());
                 stmt.setString(5, object.getOhje());
                 
 
@@ -174,7 +172,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
             Integer annos_id = rs.getInt("annos_id");
             Integer raaka_aine_id = rs.getInt("raaka_aine_id");
             Integer jarjestys = rs.getInt("jarjestys");
-            Integer maara = rs.getInt("maara");
+            double maara = rs.getDouble("maara");
             String ohje = rs.getString("ohje");
 
             stmt.close();
