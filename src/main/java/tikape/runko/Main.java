@@ -33,7 +33,7 @@ public class Main {
         AnnosRaakaAineDao annosRaakaAineDao = new AnnosRaakaAineDao(database);
         
         
-        // index.html:
+        // create the Frontpage index.html
         Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
@@ -72,13 +72,15 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
+        // enable depeting
+        
         Spark.get("/smoothiet/:id/delete", (req, res) -> {
             HashMap map = new HashMap<>();
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
             
-            annosDao.delete(annosId); // from AnnosDao
+            annosDao.delete(annosId); //  AnnosDao
             annosRaakaAineDao.deleteAnnos(annosId); // RaakaAineDao
             
             map.put("id", annosId);
@@ -88,7 +90,8 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        // Create spesific Annos:
+     
+        
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             
@@ -96,7 +99,7 @@ public class Main {
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
-            // Find raakaAine list:
+            //  create a list raakaAineet
             List<RaakaAine> raakaAineet = raakaAineDao.findRaakaAineByAnnos(annosId);
             
             map.put("annosId", annosId);
@@ -115,7 +118,7 @@ public class Main {
             return "";
         });
         
-        // Create new smoothie
+        // create smoothie page
         
         Spark.post("/smoothiet/annos", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
@@ -125,7 +128,7 @@ public class Main {
             return "";
         });
         
-        // AnnosRaakaAine
+        // create annosraakaaine page
         
         Spark.post("/smoothiet/annosraakaaine", (req, res) -> {
             Integer annosId = Integer.parseInt(req.queryParams("smoothieId"));
